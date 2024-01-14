@@ -37,7 +37,7 @@ This is a starter template for creating a microservice with [Liquid](https://git
 
 ### Configurations and Options
 
- The service's configuration is managed through the class `Configuration` (`src/service/configuration/configuration.ts`). Options and their default values are specified in file `src/service/configuration/options.json`. You can extend this JSON file to add your own options related to your service.
+The service's configuration is managed through the class `Configuration` (`src/service/configuration/configuration.ts`). Options and their default values are specified in file `src/service/configuration/options.json`. You can extend this JSON file to add your own options related to your service.
 
 - When you want to configure an option, just copy the `envName` field of the option (inside options.json) and add it to your `.env` file.
 - When you want to retrieve an option value, call the Configuration singleton's get function. Sample usage:
@@ -68,8 +68,6 @@ LIQUID_AUTH_CACHE_EXPIRY=300
 
 APIs are organized in `src/service/api`. Use provided authentication middleware to verify bearer tokens acquired from your Liquid instance.
 
-APIs are classified into three categories:
-
 The file `src/service/api/api.ts` is used to setup routing to different API sections. By default, there is just a `/system` router which will return some stats about the process. You can add a folder similar to `system` to create other APIs.
 
 Consider an API, say "blog", where admin users can post blogs, delegated users can read blogs and client / applications can delete blogs.
@@ -94,6 +92,8 @@ src
            \---blog.get.ts
            \---router.ts
 ```
+
+APIs are classified into three categories:
 
 - **Client API:** Accessible by tokens acquired through client_credentials grant in Liquid.
 - **Delegated API:** These are accessible by tokens acquired through authorization_code grant in Liquid.
