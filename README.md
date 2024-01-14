@@ -4,35 +4,86 @@ This is a starter template for creating a microservice with [Liquid](https://git
 
 ## Getting Started
 
-### Folder Structure (src)
+### Folder Structure
 
-The src folder consists of the following folders:
+```
++---src
+|   +---enum
+|   +---model
+|   |   \---mongo
+|   +---service
+|   |   +---api
+|   |   |   +---middleware
+|   |   |   \---system
+|   |   |       +---admin-api
+|   |   |       +---client-api
+|   |   |       \---shared
+|   |   +---configuration
+|   |   +---liquid-connector
+|   |   +---logger
+|   |   +---mailer
+|   |   +---mongo-db
+|   |   +---rate-limiter
+|   |   +---redis
+|   |   +---s3
+|   |   \---scope-manager
+|   +---singleton
+|   |   \---api
+|   \---utils
+\---test
+    \---integration
+        \---system
+```
 
-- **enum:** Typically, all your constants reside here. By default, roles are configured as an enum which can be extended using options `system.role.extended-roles` and `system.role.ranking` (More about options and configurations later).
-- **model:** All your MongoDB models go inside mongo folder in here. You can also choose to add your other models.
-- **service:** This is one of the most important folders in the project. This has code for services like configuration, logging, database, etc.
-  - **api:** This folder consists API related stuff like authentication middleware, routers, and code for actual API controllers. APIs are generally classified into three categories.
-    - **client-api:** These APIs can be used through only tokens acquired by using `client_credentials` grant in your Liquid instance.
-    - **admin-api:** These APIs are not very different from normal delegated APIs, but just syntactically put in a different folder to indicate that they could do some elevated stuff.
-    - **General / Delegated APIs:** Not a folder as such, these are regular APIs that most users can access by default. Comes in the parent level of `admin-api` folder.
-  - **configuration:** The template uses a Configuration class which relies on a JSON file that has a list of all the options to be used by the microservice and their default values. The file can be found at `options.json`. You can extend this JSON file to add your own options related to your service.
-    - When you want to configure an option, just copy the `envName` field of the option and add it to your .env file.
-    - When you want to use an option, call the Configuration singleton's get function. For example, `Configuration.get("your.option-name");`
-  - **liquid-connector:** Contains code to connect to your Liquid instance. To connect with your Liquid instance, the code usually requires 4 options to be set in your env file:
-    - `LIQUID_HOST=http://localhost:2000 # Replace with your Liquid instance host`
-    - `LIQUID_CLIENT_ID=application_client # Client ID for communicating with your Liquid instance`
-    - `LIQUID_CLIENT_SECRET=super-secure-client-secret # Client Secret for communicating with your Liquid instance`
-    - `LIQUID_AUTH_CACHE_EXPIRY=300`
-  - **logger:** Logger service.
-  - **mailer:** Email service.
-  - **mongo-db:** MongoDB service with built in transactions support.
-  - **rate-limiter:** Rate limiter service. You will need to modify this as you add new APIs.
-  - **redis:** Redis service.
-  - **s3:** Amazon S3 file service.
-  - **scope-manager:** Scope manager service. You usually need to call the `isScopeAllowedForRequest` function in this service to check if a scope is allowed for the request. To add scopes into the system, you need to add your scopes to `scopes.json` file and you also need to add these extensions to your Liquid instance.
-- **singleton:** Initializes services that are used throughout the application or services that continuously run in the background.
-- **utils:** Folder containing all the utilities.
+### Configurations and Options
+
+The template uses a configuration class (`src/service/configuration/confoguration.ts`) which relies on a JSON file (`src/service/configuration/options.json`) that has a list of all the options to be used by the microservice and their default values. You can extend this JSON file to add your own options related to your service.
+
+- When you want to configure an option, just copy the `envName` field of the option and add it to your `.env` file.
+- When you want to retrieve an option value, call the Configuration singleton's get function. For example,
+
+```js
+Configuration.get("your.option-name");
+```
+
+### Liquid Connection
+
+The service uses [Liquid](https://github.com/shrihari-prakash/liquid) for API authentication. This connectivity requires the following options to be configured in env file:
+
+1. liquid.host
+2. liquid.client-id
+3. liquid.client-secret
+4. liquid.auth-cache-expiry
+
+For instance, a sample env file with Liquid options configured looks like this:
+
+```bash
+LIQUID_HOST=http://localhost:2000 # Replace with your Liquid instance host
+LIQUID_CLIENT_ID=application_client # Client ID for communicating with your Liquid instance
+LIQUID_CLIENT_SECRET=super-secure-client-secret # Client Secret for communicating with your Liquid instance
+LIQUID_AUTH_CACHE_EXPIRY=300
+```
+
+### Adding New APIs
+
+You should add new APIs in the API service folder present in `src\service\api`. This folder has authentication middleware that you can use to verify bearer tokens acquired from yout Liquid instance.
+
+APIs are classified into three categories:
+
+- Client API: Accessible by tokens acquired through `client_credential` grant in Liquid. Sample API present in `src\service\api\system\client-api`
+- Delegated API: Simply to be put outside the `client-api` or `admin-api` folder. These are accessible by tokens acquired through `authorization_code` grant in Liquid.
+- Admin API: Accessible by tokens acquired through `authorization_code` grant in Liquid. Not much different from Delegated APIs, but simply put in the `admin-api` folder to explicitly state that these APIs can do some elevated actions. Sample API present in `src\service\api\system\admin-api`.
+
+### Scope Management
+
+In the beggining of your API executions, you usually need to call the `isScopeAllowedForRequest` function in of the ScopeManager singleton to check if a scope is allowed for the request. To add scopes into the system, you need to add your scopes to scopes.json (`src\service\scope-manager\scopes.json`) file.
+
+Now that you have added your scopes, it is important that Liquid is also aware of these additional scopes so that these scopes can appear in the Nitrogen admin panel and can be given access to when tokens are requested. To do this, make a copy of your scopes.json file and simply remove the `*` scope object. Now, simply mount this new file to `/var/liquid/scope-extensions.json` of the container.
 
 ### Running the service
 
-Run `npm run start:dev`
+Run `npm run start:dev`.
+
+### Building the service
+
+Run `npm run build`.
