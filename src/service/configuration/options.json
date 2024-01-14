@@ -1,0 +1,495 @@
+[
+  {
+    "name": "environment",
+    "displayName": "Environment",
+    "envName": "NODE_ENV",
+    "description": "Specifies the application environment. Possible values are 'development', 'production'",
+    "type": "string",
+    "default": "production"
+  },
+  {
+    "name": "liquid.host",
+    "displayName": "Liquid Host",
+    "envName": "LIQUID_HOST",
+    "description": "Specifies the hostname of Liquid instance.",
+    "type": "string",
+    "default": "http://localhost:2000"
+  },
+  {
+    "name": "liquid.client-id",
+    "displayName": "Liquid Client ID",
+    "envName": "LIQUID_CLIENT_ID",
+    "description": "Specifies the client ID for authenticating with Liquid instance.",
+    "type": "string",
+    "default": "application_client"
+  },
+  {
+    "name": "liquid.client-secret",
+    "displayName": "Liquid Client Secret",
+    "envName": "LIQUID_CLIENT_SECRET",
+    "description": "Specifies the client secret for authenticating with Liquid instance.",
+    "type": "string",
+    "default": "super-secure-client-secret"
+  },
+  {
+    "name": "liquid.auth-cache-expiry",
+    "displayName": "Liquid Auth Cache Expiry",
+    "envName": "LIQUID_AUTH_CACHE_EXPIRY",
+    "description": "Specifies the validity of token caching in seconds for Liquid Connector.",
+    "type": "number",
+    "default": 300
+  },
+  {
+    "name": "system.reverse-proxy-mode",
+    "displayName": "Reverse Proxy Mode",
+    "envName": "SYSTEM_REVERSE_PROXY_MODE",
+    "description": "Specifies if Liquid is sitting behind a reverse proxy like nginx.",
+    "type": "boolean",
+    "default": false
+  },
+  {
+    "name": "system.log-level",
+    "displayName": "Log Level",
+    "envName": "SYSTEM_LOG_LEVEL",
+    "description": "Log level for the application. Possible values are debug, info, warn, error",
+    "type": "string",
+    "default": "debug"
+  },
+  {
+    "name": "system.app-port",
+    "displayName": "Application Port",
+    "envName": "SYSTEM_APP_PORT",
+    "description": "Port to listen on.",
+    "type": "number",
+    "default": 2002
+  },
+  {
+    "name": "system.app-name",
+    "displayName": "Application Name",
+    "envName": "SYSTEM_APP_NAME",
+    "description": "Name of the application.",
+    "type": "string",
+    "default": "Liquid"
+  },
+  {
+    "name": "system.stats.enable-request-counting",
+    "displayName": "Stats Enable Request Counting",
+    "envName": "SYSTEM_STATS_ENABLE_REQUEST_COUNTING",
+    "description": "Specifies if application should count the number of requests served since service was started and return it in stats API.",
+    "type": "boolean",
+    "default": false,
+    "relatedOptions": ["system.stats.request-counter-key"]
+  },
+  {
+    "name": "system.stats.request-counter-key",
+    "displayName": "Stats Request Counter Key",
+    "envName": "SYSTEM_STATS_REQUEST_COUNTER_KEY",
+    "description": "Specifies the key to be used for storing and retrieving request count in express app.",
+    "type": "string",
+    "default": "liquid-request-count",
+    "relatedOptions": ["system.stats.enable-request-counting"]
+  },
+  {
+    "name": "system.request-body.json.max-size",
+    "displayName": "System Request Body Max Size (JSON)",
+    "envName": "SYSTEM_REQUEST_BODY_JSON_MAX_SIZE",
+    "description": "Specifies maximum size limit for request body for JSON requests.",
+    "type": "string",
+    "default": "1mb"
+  },
+  {
+    "name": "system.scope-extension-file-path",
+    "displayName": "Scope Extension File Path",
+    "envName": "SYSTEM_SCOPE_EXTENSION_FILE_PATH",
+    "description": "Specifies the path of the JSON file that contains array of scopes that need to be added to liquid in addition to the default ones.",
+    "type": "string",
+    "default": "/var/service/scope-extensions.json"
+  },
+  {
+    "name": "system.enable-response-compression",
+    "displayName": "Enable Response Compression",
+    "envName": "SYSTEM_ENABLE_RESPONSE_COMPRESSION",
+    "description": "Specifies if liquid can GZip HTTP responses.",
+    "type": "boolean",
+    "default": false
+  },
+  {
+    "name": "mongo-db.connection-string",
+    "displayName": "MongoDB Connection String",
+    "envName": "MONGO_DB_CONNECTION_STRING",
+    "description": "Connection string to connect to MongoDB.",
+    "type": "string",
+    "default": "mongodb://127.0.0.1:27017/accounts",
+    "relatedOptions": ["mongo-db.use-transactions"]
+  },
+  {
+    "name": "mongo-db.use-transactions",
+    "displayName": "MongoDB Use Transactions",
+    "envName": "MONGO_DB_USE_TRANSACTIONS",
+    "description": "Specifies if application can use MongoDB transactions in APIs where multiple write operations are involved. Highly recommended that you turn this on if you have a replica set.",
+    "type": "boolean",
+    "default": false,
+    "relatedOptions": ["mongo-db.connection-string"]
+  },
+  {
+    "name": "system.email-adapter",
+    "displayName": "System Email Adapter",
+    "envName": "SYSTEM_EMAIL_ADAPTER",
+    "description": "Specifies the adapter to use to send emails to users. Possible values are `nodemailer`, `sendgrid`, `print`",
+    "type": "string",
+    "default": "sendgrid",
+    "relatedOptions": ["nodemailer.*", "sendgrid.*"]
+  },
+  {
+    "name": "nodemailer.service-name",
+    "displayName": "Nodemailer Service Name",
+    "envName": "NODEMAILER_SERVICE_NAME",
+    "description": "Service name for nodemailer.",
+    "type": "string",
+    "relatedOptions": ["nodemailer.*", "system.email-adapter"]
+  },
+  {
+    "name": "nodemailer.host",
+    "displayName": "Nodemailer Host",
+    "envName": "NODEMAILER_HOST",
+    "description": "Host for nodemailer.",
+    "type": "string",
+    "relatedOptions": ["nodemailer.*", "system.email-adapter"]
+  },
+  {
+    "name": "nodemailer.port",
+    "displayName": "Nodemailer Port",
+    "envName": "NODEMAILER_PORT",
+    "description": "Port for nodemailer.",
+    "type": "string",
+    "relatedOptions": ["nodemailer.*", "system.email-adapter"]
+  },
+  {
+    "name": "nodemailer.secure",
+    "displayName": "Nodemailer Secure",
+    "envName": "NODEMAILER_SECURE",
+    "description": "Specifies if nodemailer should be secure.",
+    "type": "boolean",
+    "relatedOptions": ["nodemailer.*", "system.email-adapter"]
+  },
+  {
+    "name": "nodemailer.username",
+    "displayName": "Nodemailer Username",
+    "envName": "NODEMAILER_USERNAME",
+    "description": "Username for nodemailer.",
+    "type": "string",
+    "relatedOptions": ["nodemailer.*", "system.email-adapter"]
+  },
+  {
+    "name": "nodemailer.password",
+    "displayName": "Nodemailer Password",
+    "envName": "NODEMAILER_PASSWORD",
+    "description": "Password for nodemailer.",
+    "type": "string",
+    "relatedOptions": ["nodemailer.*", "system.email-adapter"]
+  },
+  {
+    "name": "nodemailer.ciphers",
+    "displayName": "Nodemailer Ciphers",
+    "envName": "NODEMAILER_CIPHERS",
+    "description": "Ciphers for nodemailer.",
+    "type": "string",
+    "default": "SSLv3",
+    "relatedOptions": ["nodemailer.*", "system.email-adapter"]
+  },
+  {
+    "name": "nodemailer.reject-unauthorized",
+    "displayName": "Nodemailer Reject Unauthorized",
+    "envName": "NODEMAILER_REJECT_UNAUTHORIZED",
+    "description": "Specifies if nodemailer should reject unauthorized.",
+    "type": "boolean",
+    "default": false,
+    "relatedOptions": ["nodemailer.*", "system.email-adapter"]
+  },
+  {
+    "name": "sendgrid.api-key",
+    "displayName": "Sendgrid API Key",
+    "envName": "SENDGRID_API_KEY",
+    "description": "API key for sendgrid.",
+    "type": "string",
+    "relatedOptions": ["sendgrid.*", "system.email-adapter"]
+  },
+  {
+    "name": "sendgrid.verification-email-template-id",
+    "displayName": "Sendgrid Verification Email Template ID",
+    "envName": "SENDGRID_VERIFICATION_EMAIL_TEMPLATE_ID",
+    "description": "Specifies the template ID of verification email template. Leave blank if you want to use plain text. Variables that will be replaced on template: `app_name`, `person_id`, `person_name`, `verification_code`",
+    "type": "string",
+    "default": "",
+    "relatedOptions": ["sendgrid.*", "system.email-adapter"]
+  },
+  {
+    "name": "email.outbound-address",
+    "displayName": "Email Outbound Address",
+    "envName": "EMAIL_OUTBOUND_ADDRESS",
+    "description": "Email address to be used for outgoing emails from the system. This option is preferred over `sendgrid.outbound-email-address`",
+    "type": "string",
+    "default": "liquid@example.com",
+    "relatedOptions": ["nodemailer.*", "sendgrid.*", "system.email-adapter"]
+  },
+  {
+    "name": "storage.cloud-path",
+    "displayName": "Storage Cloud Path",
+    "envName": "STORAGE_Cloud_PATH",
+    "description": "Path to store user uploaded files.",
+    "type": "string",
+    "default": "content",
+    "relatedOptions": ["privilege.can-use-cloud-storage", "s3.*"]
+  },
+  {
+    "name": "s3.endpoint",
+    "displayName": "S3 Endpoint",
+    "envName": "S3_ENDPOINT",
+    "description": "Endpoint to be used for S3 storage.",
+    "type": "string",
+    "relatedOptions": ["privilege.can-use-cloud-storage", "s3.*"]
+  },
+  {
+    "name": "s3.access-key-id",
+    "displayName": "S3 Access Key ID",
+    "envName": "S3_ACCESS_KEY_ID",
+    "description": "Access key ID to be used for S3 storage.",
+    "type": "string",
+    "relatedOptions": ["privilege.can-use-cloud-storage", "s3.*"]
+  },
+  {
+    "name": "s3.access-key-secret",
+    "displayName": "S3 Access Key Secret",
+    "envName": "S3_ACCESS_KEY_SECRET",
+    "description": "Access key secret to be used for S3 storage.",
+    "type": "string",
+    "relatedOptions": ["privilege.can-use-cloud-storage", "s3.*"]
+  },
+  {
+    "name": "s3.bucket-name",
+    "displayName": "S3 Bucket Name",
+    "envName": "S3_BUCKET_NAME",
+    "description": "Bucket name to be used for S3 storage.",
+    "type": "string",
+    "default": "liquid",
+    "relatedOptions": ["privilege.can-use-cloud-storage", "s3.*"]
+  },
+  {
+    "name": "s3.get-object-expiry",
+    "displayName": "S3 Get Object Expiry",
+    "envName": "S3_GET_OBJECT_EXPIRY",
+    "description": "Expiry for getObject pre signed URLs.",
+    "type": "number",
+    "default": 3600,
+    "relatedOptions": ["privilege.can-use-cloud-storage", "s3.*"]
+  },
+  {
+    "name": "s3.put-object-expiry",
+    "displayName": "S3 Put Object Expiry",
+    "envName": "S3_PUT_OBJECT_EXPIRY",
+    "description": "Expiry for putObject pre signed URLs.",
+    "type": "number",
+    "default": 3600,
+    "relatedOptions": ["privilege.can-use-cloud-storage", "s3.*"]
+  },
+  {
+    "name": "redis.port",
+    "displayName": "Redis Port",
+    "envName": "REDIS_PORT",
+    "description": "Port for the Redis connection.",
+    "type": "number",
+    "default": 6379,
+    "relatedOptions": ["privilege.can-use-cache", "redis.*"]
+  },
+  {
+    "name": "redis.host",
+    "displayName": "Redis Host",
+    "envName": "REDIS_HOST",
+    "description": "Host for the Redis connection.",
+    "type": "string",
+    "default": "127.0.0.1",
+    "relatedOptions": ["privilege.can-use-cache", "redis.*"]
+  },
+  {
+    "name": "redis.username",
+    "displayName": "Redis Username",
+    "envName": "REDIS_USERNAME",
+    "description": "Username for the Redis connection.",
+    "type": "string",
+    "relatedOptions": ["privilege.can-use-cache", "redis.*"]
+  },
+  {
+    "name": "redis.password",
+    "displayName": "Redis Password",
+    "envName": "REDIS_PASSWORD",
+    "description": "Password for the Redis connection.",
+    "type": "string",
+    "relatedOptions": ["privilege.can-use-cache", "redis.*"]
+  },
+  {
+    "name": "redis.db",
+    "displayName": "Redis Database Number",
+    "envName": "REDIS_DB",
+    "description": "Password for the Redis connection.",
+    "type": "number",
+    "default": 0,
+    "relatedOptions": ["privilege.can-use-cache", "redis.*"]
+  },
+  {
+    "name": "redis.key-prefix",
+    "displayName": "Redis Key Prefix",
+    "envName": "REDIS_KEY_PREFIX",
+    "description": "Key prefix for Redis keys.",
+    "type": "string",
+    "default": "my-service:",
+    "relatedOptions": ["privilege.can-use-cache", "redis.*"]
+  },
+  {
+    "name": "cors.allowed-origins",
+    "displayName": "Allowed Origins for CORS requests",
+    "envName": "CORS_ALLOWED_ORIGINS",
+    "description": "Allowed origins for CORS requests.",
+    "type": "stringArray",
+    "default": "http://localhost:2000,http://localhost:2001"
+  },
+  {
+    "name": "privilege.can-use-cache",
+    "displayName": "Can Use Cache",
+    "envName": "CAN_USE_CACHE",
+    "description": "Specifies whether to use cache for optimizing API response time.",
+    "type": "boolean",
+    "default": true,
+    "relatedOptions": ["redis.*"]
+  },
+  {
+    "name": "privilege.can-use-cloud-storage",
+    "displayName": "Can Use Cloud Storage",
+    "envName": "CAN_USE_CLOUD_STORAGE",
+    "description": "Specifies if the application can use cloud storage.",
+    "type": "boolean",
+    "default": false,
+    "relatedOptions": ["s3.*"]
+  },
+  {
+    "name": "pagination.default-limit",
+    "displayName": "Pagination Default Limit",
+    "envName": "PAGINATION_DEFAULT_LIMIT",
+    "description": "Specifies the default number of results to be returned in paginated APIs",
+    "type": "number",
+    "default": 10
+  },
+  {
+    "name": "pagination.max-limit",
+    "displayName": "Pagination Max Limit",
+    "envName": "PAGINATION_MAX_LIMIT",
+    "description": "Specifies the maximum number of results to be returned in paginated APIs",
+    "type": "number",
+    "default": 1000
+  },
+  {
+    "name": "system.rate-limit.window-size",
+    "displayName": "Rate Limit Window Size",
+    "envName": "SYSTEM_RATE_LIMIT_WINDOW_SIZE",
+    "description": "Window size (in seconds) for rate limiting.",
+    "type": "number",
+    "default": 60
+  },
+  {
+    "name": "system.rate-limit.light-api-max-limit",
+    "displayName": "Light API Max Limit",
+    "envName": "SYSTEM_RATE_LIMIT_LIGHT_API_MAX_LIMIT",
+    "description": "Specifies the rate limit for light APIs for the specified window size.",
+    "type": "number",
+    "default": 75
+  },
+  {
+    "name": "system.rate-limit.medium-api-max-limit",
+    "displayName": "Medium API Max Limit",
+    "envName": "SYSTEM_RATE_LIMIT_MEDIUM_API_MAX_LIMIT",
+    "description": "Specifies the rate limit for medium APIs for the specified window size.",
+    "type": "number",
+    "default": 30
+  },
+  {
+    "name": "system.rate-limit.heavy-api-max-limit",
+    "displayName": "Heavy API Max Limit",
+    "envName": "SYSTEM_RATE_LIMIT_HEAVY_API_MAX_LIMIT",
+    "description": "Specifies the rate limit for heavy APIs for the specified window size.",
+    "type": "number",
+    "default": 10
+  },
+  {
+    "name": "system.rate-limit.extreme-api-max-limit",
+    "displayName": "Extreme API Max Limit",
+    "envName": "SYSTEM_RATE_LIMIT_EXTREME_API_MAX_LIMIT",
+    "description": "Specifies the rate limit for extreme APIs for the specified window size.",
+    "type": "number",
+    "default": 5
+  },
+  {
+    "name": "system.rate-limit.count-by-route",
+    "displayName": "Rate Limiter Count By Route",
+    "envName": "SYSTEM_RATE_LIMIT_COUNT_BY_ROUTE",
+    "description": "Specifies if the rate limit counter should be incremented per route per IP instead of just the IP. This means rate limit will be counted independendly for every API.",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "name": "system.role.default",
+    "displayName": "System Default Role",
+    "envName": "SYSTEM_DEFAULT_ROLE",
+    "description": "Specifies the default role to be used when users are signing up.",
+    "type": "string",
+    "default": "user"
+  },
+  {
+    "name": "system.role.extended-roles",
+    "displayName": "Extended Roles",
+    "envName": "SYSTEM_ROLE_EXTENDED_ROLES",
+    "description": "Additional roles to be considered in the system. `system.role.ranking` SHOULD be updated along with this option to specify hierarchy of roles.",
+    "type": "stringArray",
+    "default": "",
+    "relatedOptions": ["system.role.ranking"]
+  },
+  {
+    "name": "system.role.ranking",
+    "displayName": "Role Rank",
+    "envName": "SYSTEM_ROLE_RANKING",
+    "description": "Comma separated list of role names and their ranks in format `role(score)` specifying the order of priorities for roles. Lower numbers have higher priorities.",
+    "type": "stringArray",
+    "default": "super_admin(1),admin(2),internal_client(2),external_client(3),user(4)",
+    "relatedOptions": ["system.role.extended-roles"]
+  },
+  {
+    "name": "system.exposed-options",
+    "displayName": "System Exposed Options",
+    "envName": "SYSTEM_EXPOSED_OPTIONS",
+    "description": "Comma separated list of options that a user can have access to after logging in. This will also include insecure settings.",
+    "type": "stringArray",
+    "default": [
+      "admin-api.user.profile.can-edit-peer-data",
+      "system.role.extended-roles",
+      "pagination.default-limit",
+      "pagination.max-limit",
+      "user.account-creation.invites-per-person",
+      "user.account-creation.invite-code-availability-window"
+    ]
+  },
+  {
+    "name": "system.exposed-options.insecure",
+    "displayName": "System Exposed Options (Public)",
+    "envName": "SYSTEM_EXPOSED_OPTIONS_INSECURE",
+    "description": "Comma separated list of options that a user can have access to before logging in.",
+    "type": "stringArray",
+    "default": [
+      "privilege.can-create-account",
+      "privilege.can-use-phone-number",
+      "user.account-creation.enable-invite-only",
+      "user.account-creation.require-email-verification",
+      "privilege.can-reset-password",
+      "system.demo-mode",
+      "user.login.require-browser-info",
+      "user.login.require-os-info"
+    ]
+  }
+]

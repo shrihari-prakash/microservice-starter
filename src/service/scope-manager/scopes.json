@@ -1,0 +1,26 @@
+[
+  {
+    "name": "*",
+    "description": "View and manage everything in the system."
+  },
+  {
+    "name": "client:all",
+    "description": "This is a Liquid Scope.",
+    "parent": "*"
+  },
+  {
+    "name": "client:system:stats:read",
+    "description": "Read system stats.",
+    "parent": "client:all"
+  },
+  {
+    "name": "admin:all",
+    "description": "This is a Liquid Scope.",
+    "parent": "*"
+  },
+  {
+    "name": "admin:system:stats:read",
+    "description": "Read system stats.",
+    "parent": "admin:all"
+  }
+]
