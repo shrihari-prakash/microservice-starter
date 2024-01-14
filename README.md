@@ -50,10 +50,10 @@ Configuration.get("your.option-name");
 
 The service uses [Liquid](https://github.com/shrihari-prakash/liquid) for API authentication. This connectivity requires the following options (options names from options.json) to be configured in env file:
 
-1. liquid.host: Host address of your Liquid instance.
-2. liquid.client-id: Client ID for communication with your Liquid instance.
-3. liquid.client-secret: Client Secret of your Liquid client.
-4. liquid.auth-cache-expiry: Expiry time for how long results of token authentication should be cached.
+1. **liquid.host:** Host address of your Liquid instance.
+2. **liquid.client-id:** Client ID for communication with your Liquid instance.
+3. **liquid.client-secret:** Client Secret of your Liquid client.
+4. **liquid.auth-cache-expiry:** Expiry time for how long results of token authentication should be cached.
 
 For instance, a sample env file with Liquid options configured looks like this:
 
@@ -95,9 +95,9 @@ src
            \---router.ts
 ```
 
-- Client API: Accessible by tokens acquired through client_credentials grant in Liquid.
-- Delegated API: These are accessible by tokens acquired through authorization_code grant in Liquid.
-- Admin API: Accessible by tokens acquired through authorization_code grant in Liquid. Not much different from Delegated APIs, but simply put in the `admin-api` folder to explicitly state that these APIs can do some elevated actions.
+- **Client API:** Accessible by tokens acquired through client_credentials grant in Liquid.
+- **Delegated API:** These are accessible by tokens acquired through authorization_code grant in Liquid.
+- **Admin API:** Accessible by tokens acquired through authorization_code grant in Liquid. Not much different from Delegated APIs, but simply put in the `admin-api` folder to explicitly state that these APIs can do some elevated actions.
 
 The router.ts file is something similar to the one present in `src/service/api/system/router.ts`
 
