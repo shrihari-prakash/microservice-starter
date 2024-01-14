@@ -8,15 +8,18 @@ import { ErrorResponse } from "../../../utils/response";
 import { LiquidConnector } from "../../../singleton/liquid-connector";
 import Role from "../../../enum/role";
 
+const sendUnauthorizedError = (res: Response) =>
+  res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));
+
 const authenticateToken = async (req: Request, res: Response) => {
   const authHeader = req.header("Authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));
+    sendUnauthorizedError(res);
     return;
   }
   const token = authHeader.split(" ")[1];
   if (!token) {
-    res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));
+    sendUnauthorizedError(res);
     return;
   }
   return await LiquidConnector.authenticate(token);
@@ -30,12 +33,12 @@ export const AuthenticateUser = async (req: Request, res: Response, next: NextFu
   try {
     const token = await authenticateToken(req, res);
     if (!token) {
-      return res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));
+      return sendUnauthorizedError(res);
     }
     const user = token.user;
     if (isClient(user.role)) {
       log.warn("Entity %s with role %s is not a user", user.username, user.role);
-      return res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));
+      return sendUnauthorizedError(res);
     }
     res.locals.token = token;
     res.locals.user = user;
@@ -47,7 +50,7 @@ export const AuthenticateUser = async (req: Request, res: Response, next: NextFu
     if (res.headersSent) {
       return;
     }
-    res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));
+    sendUnauthorizedError(res);
     return;
   }
 };
@@ -56,12 +59,12 @@ export const AuthenticateClient = async (req: Request, res: Response, next: Next
   try {
     const token = await authenticateToken(req, res);
     if (!token) {
-      return res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));
+      return sendUnauthorizedError(res);
     }
     const user = token.user;
     if (!isClient(user.role)) {
       log.warn("Entity %s with role %s is not a client", user.username, user.role);
-      return res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));
+      return sendUnauthorizedError(res);
     }
     res.locals.token = token;
     res.locals.user = user;
@@ -73,7 +76,7 @@ export const AuthenticateClient = async (req: Request, res: Response, next: Next
     if (res.headersSent) {
       return;
     }
-    res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));
+    sendUnauthorizedError(res);
     return;
   }
 };
