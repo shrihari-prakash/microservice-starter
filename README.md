@@ -70,9 +70,13 @@ You should add new APIs in the API service folder present in `src\service\api`. 
 
 APIs are classified into three categories:
 
-- Client API: Accessible by tokens acquired through `client_credential` grant in Liquid. Sample API present in `src\service\api\system\client-api`
-- Delegated API: Simply to be put outside the `client-api` or `admin-api` folder. These are accessible by tokens acquired through `authorization_code` grant in Liquid.
-- Admin API: Accessible by tokens acquired through `authorization_code` grant in Liquid. Not much different from Delegated APIs, but simply put in the `admin-api` folder to explicitly state that these APIs can do some elevated actions. Sample API present in `src\service\api\system\admin-api`.
+The file `src\service\api\api.ts` is used to setup routing to different API sections. By default, there is just a `/system` router which will return some stats about the process. You can add a folder similar to `system` to create other APIs. APIs are classified into three types:
+
+- Client API: Accessible by tokens acquired through client_credentials grant in Liquid. Starts with the prefix `/client-api`.
+- Delegated API: Simply put outside the `client-api` or `admin-api` folder. These are accessible by tokens acquired through authorization_code grant in Liquid.
+- Admin API: Accessible by tokens acquired through authorization_code grant in Liquid. Not much different from Delegated APIs, but simply put in the `admin-api` folder to explicitly state that these APIs can do some elevated actions. Starts with prefix `/admin-api`.
+
+It is recommended that you checkout the `src\service\api\system` folder to see an example of how to build these APIs.
 
 ### Scope Management
 
