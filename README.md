@@ -8,7 +8,7 @@ This is a starter template for creating a microservice with [Liquid](https://git
 
 The src folder consists of the following folders:
 
-- **enum:** Typically, all your constants reside here. By default, roles are configured as an enum which can be extended using options `system.role.extended-roles` and `system.role.ranking` (More about options anc configurations later).
+- **enum:** Typically, all your constants reside here. By default, roles are configured as an enum which can be extended using options `system.role.extended-roles` and `system.role.ranking` (More about options and configurations later).
 - **model:** All your MongoDB models go inside mongo folder in here. You can also choose to add your other models.
 - **service:** This is one of the most important folders in the project. This has code for services like configuration, logging, database, etc.
   - **api:** This folder consists API related stuff like authentication middleware, routers, and code for actual API controllers. APIs are generally classified into three categories.
