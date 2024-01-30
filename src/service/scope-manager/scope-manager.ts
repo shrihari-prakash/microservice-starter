@@ -51,28 +51,18 @@ export class ScopeManager {
   isScopeAllowedForRequest(scope: string, res: Response) {
     const token = res.locals?.token;
     const allowedScopes = token?.scope || [];
-    const clientAllowedScopes = token?.client.scope || [];
-    log.debug("Scopes allowed: %o, client scopes allowed: %o", allowedScopes, clientAllowedScopes);
-    if (this.isScopeAllowed(scope, allowedScopes) && this.isScopeAllowed(scope, clientAllowedScopes)) {
+    if (this.isScopeAllowed(scope, allowedScopes)) {
       return true;
     } else {
-      log.debug("Scope blocked for user %s, client %s.", res.locals.user?.username, token?.client?.clientId);
+      log.debug("Scope blocked for user %s. Scopes allowed: %o.", res.locals.user?.username, allowedScopes);
       return false;
     }
-  }
-
-  canRequestScope(scopes: string[], entity: any) {
-    if (!scopes) {
-      log.debug("Scope not specified %s", scopes);
-      return false;
-    }
-    return scopes.every((requestedScope: string) => this.isScopeAllowed(requestedScope, entity.scope));
   }
 
   isScopeAllowed(scope: string, allowedScopes: string[] = []): boolean {
     const scopeObject = this.scopes[scope];
     if (!scopeObject) {
-      log.debug("No scope object found for %s", scope);
+      log.warn("Unknown scope %s. Did you forget to configure this scope in scopes.json?", scope);
       return false;
     }
     if (allowedScopes.includes(scopeObject.name) || allowedScopes.includes(scopeObject.parent)) {
