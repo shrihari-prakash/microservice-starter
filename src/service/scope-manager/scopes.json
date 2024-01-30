@@ -1,7 +1,7 @@
 [
   {
     "name": "*",
-    "description": "View and manage everything in the system."
+    "description": "This is a Liquid Scope."
   },
   {
     "name": "client:all",

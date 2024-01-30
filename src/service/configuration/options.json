@@ -98,14 +98,6 @@
     "default": "1mb"
   },
   {
-    "name": "system.scope-extension-file-path",
-    "displayName": "Scope Extension File Path",
-    "envName": "SYSTEM_SCOPE_EXTENSION_FILE_PATH",
-    "description": "Specifies the path of the JSON file that contains array of scopes that need to be added to liquid in addition to the default ones.",
-    "type": "string",
-    "default": "/var/service/scope-extensions.json"
-  },
-  {
     "name": "system.enable-response-compression",
     "displayName": "Enable Response Compression",
     "envName": "SYSTEM_ENABLE_RESPONSE_COMPRESSION",
