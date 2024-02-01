@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from "express";
 
 import { errorMessages, statusCodes } from "../../../utils/http-status";
 import { ErrorResponse } from "../../../utils/response";
-import { LiquidConnector } from "../../../singleton/liquid-connector";
+import { LiquidAuthenticator } from "../../../singleton/liquid-authenticator";
 import Role from "../../../enum/role";
 
 const sendUnauthorizedError = (res: Response) =>
@@ -22,7 +22,7 @@ const authenticateToken = async (req: Request, res: Response) => {
     sendUnauthorizedError(res);
     return;
   }
-  return await LiquidConnector.authenticate(token);
+  return await LiquidAuthenticator.authenticate(token);
 };
 
 const isClient = (role: string) => {

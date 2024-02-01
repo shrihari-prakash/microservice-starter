@@ -1,16 +1,16 @@
 import { Logger } from "../../singleton/logger";
-const log = Logger.getLogger().child({ from: "liquid-connector" });
+const log = Logger.getLogger().child({ from: "liquid-authenticator" });
 
-import LiquidNodeConnector from "liquid-node-connector";
+import LiquidNodeAuthenticator from "liquid-node-authenticator";
 import { Redis } from "../../singleton/redis";
 import { Configuration } from "../../singleton/configuration";
 
-export class LiquidConnector {
-  connector: LiquidNodeConnector;
+export class LiquidAuthenticator {
+  connector: LiquidNodeAuthenticator;
 
   constructor() {
     log.info("Initializing liquid node connector...");
-    this.connector = new LiquidNodeConnector({
+    this.connector = new LiquidNodeAuthenticator({
       host: Configuration.get("liquid.host"),
       clientId: Configuration.get("liquid.client-id"),
       clientSecret: Configuration.get("liquid.client-secret"),
@@ -18,7 +18,7 @@ export class LiquidConnector {
         client: Configuration.get("privilege.can-use-cache") ? Redis.client : null,
         expire: Configuration.get("liquid.auth-cache-expiry"),
       },
-      logger: log,
+      debugging: true,
     });
   }
 
@@ -29,5 +29,9 @@ export class LiquidConnector {
   async getAccessToken() {
     const { accessToken } = await this.connector.getAccessToken();
     return accessToken;
+  }
+
+  checkTokenScope(scope: string, token: any) {
+    return this.connector.checkTokenScope(scope, token);
   }
 }

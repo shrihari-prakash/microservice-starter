@@ -8,13 +8,14 @@ import app from "../../../..";
 import { errorMessages, statusCodes } from "../../../../utils/http-status";
 import { ErrorResponse, SuccessResponse } from "../../../../utils/response";
 import { Configuration } from "../../../../singleton/configuration";
-import { ScopeManager } from "../../../../singleton/scope-manager";
+import { LiquidAuthenticator } from "../../../../singleton/liquid-authenticator";
 
 const GET__Stats = async (_: Request, res: Response) => {
   try {
+    const token = res.locals.token;
     if (
-      !ScopeManager.isScopeAllowedForRequest("admin:system:stats:read", res) ||
-      !ScopeManager.isScopeAllowedForRequest("client:system:stats:read", res)
+      !LiquidAuthenticator.checkTokenScope("admin:configuration:read", token) &&
+      !LiquidAuthenticator.checkTokenScope("client:configuration:read", token)
     ) {
       return res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.insufficientPrivileges));
     }
