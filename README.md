@@ -105,9 +105,7 @@ It is recommended that you checkout the `src/service/api/system` folder to see a
 
 ### Scope Management
 
-In the beginning of your API executions, you usually need to call the `ScopeManager.isScopeAllowedForRequest("your:api:scope")` function in of to check if a scope is allowed for the request. To add scopes into the system, you need to add your scopes to scopes.json (`src/service/scope-manager/scopes.json`) file.
-
-Now that you have added your scopes, it is important that Liquid is also aware of these additional scopes so that these scopes can appear in the Nitrogen admin panel and can be given access to when tokens are requested. To do this, make a copy of your scopes.json file and simply remove the `*` scope object. Now, mount this new file to `/var/liquid/scope-extensions.json` of the container.
+To learn about scopes and how you can extend Liquid scopes, see [this article](https://github.com/shrihari-prakash/liquid/wiki/Understanding-Access-Control-and-Integrating-with-Other-Microservices). Once you've successfully extended Liquid scopes, in the beginning of your API executions, you usually need to call the `LiquidAuthenticator.isScopeAllowedForRequest("your:api:scope")` function.
 
 ### Running the service
 
