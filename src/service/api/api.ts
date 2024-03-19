@@ -1,5 +1,5 @@
 import express from "express";
-import SystemRouter from "./system/router";
+import SystemRouter from "./system/router.js";
 
 export class Api {
   public initialize(app: express.Application): void {

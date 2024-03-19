@@ -2,13 +2,13 @@ import pino from "pino";
 import pretty from "pino-pretty";
 import fs from "fs";
 
-import { Configuration } from "../../singleton/configuration";
+import { Configuration } from "../../singleton/configuration.js";
 
 export class Logger {
   logger;
 
   constructor() {
-    const prettyStream = pretty({
+    const prettyStream = pretty.default({
       colorize: true,
       translateTime: "yyyy-dd-mm HH:MM:ss",
     });
@@ -21,7 +21,7 @@ export class Logger {
       streams.push({ level: Configuration.get("system.log-level"), stream: fileStream });
     }
 
-    this.logger = pino({ level: Configuration.get("system.log-level") }, pino.multistream(streams));
+    this.logger = pino.default({ level: Configuration.get("system.log-level") }, pino.multistream(streams));
   }
 
   public getLogger(): any {

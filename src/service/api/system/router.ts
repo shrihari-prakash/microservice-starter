@@ -1,8 +1,8 @@
 import express from "express";
 
-import SystemClientRouter from "./client-api/routes";
-import SystemAdminRouter from "./admin-api/routes";
-import GET__Version from "./version.get";
+import SystemClientRouter from "./client-api/routes.js";
+import SystemAdminRouter from "./admin-api/routes.js";
+import GET__Version from "./version.get.js";
 
 const SystemRouter = express.Router();
 

@@ -1,10 +1,10 @@
-import { Logger } from "../../singleton/logger";
+import { Logger } from "../../singleton/logger.js";
 const log = Logger.getLogger().child({ from: "mailer" });
 
 import sgMail from "@sendgrid/mail";
 import nodemailer from "nodemailer";
 
-import { Configuration } from "../../singleton/configuration";
+import { Configuration } from "../../singleton/configuration.js";
 
 const Modes = {
   PRINT: "print",

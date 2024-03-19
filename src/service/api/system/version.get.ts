@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
 import fs from "fs";
-
-import { statusCodes } from "../../../utils/http-status";
-import { SuccessResponse } from "../../../utils/response";
 import path from "path";
+import { fileURLToPath } from "url";
+
+import { statusCodes } from "../../../utils/http-status.js";
+import { SuccessResponse } from "../../../utils/response.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const version = fs.readFileSync(path.join(__dirname, "../../../", "VERSION"), { encoding: "utf8" });
 

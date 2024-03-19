@@ -1,12 +1,12 @@
-import { Logger } from "../../../singleton/logger";
+import { Logger } from "../../../singleton/logger.js";
 const log = Logger.getLogger().child({ from: "liquid-connector" });
 
 import { NextFunction, Request, Response } from "express";
 
-import { errorMessages, statusCodes } from "../../../utils/http-status";
-import { ErrorResponse } from "../../../utils/response";
-import { LiquidAuthenticator } from "../../../singleton/liquid-authenticator";
-import Role from "../../../enum/role";
+import { errorMessages, statusCodes } from "../../../utils/http-status.js";
+import { ErrorResponse } from "../../../utils/response.js";
+import { LiquidAuthenticator } from "../../../singleton/liquid-authenticator.js";
+import Role from "../../../enum/role.js";
 
 const sendUnauthorizedError = (res: Response) =>
   res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.unauthorized));

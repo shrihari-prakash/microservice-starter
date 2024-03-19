@@ -4,5 +4,5 @@
     "NODE_ENV": "development"
   },
   "ext": ".ts, .js, .json, .yaml",
-  "exec": "ts-node ./src/index.ts"
+  "exec": "tsc && npm run copy-files && node build/index.js"
 }

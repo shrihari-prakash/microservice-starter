@@ -1,16 +1,19 @@
-import { Logger } from "./singleton/logger";
+import { Logger } from "./singleton/logger.js";
 const log = Logger.getLogger().child({ from: "main" });
 
 import * as dotenv from "dotenv";
 dotenv.config();
 
 import * as path from "path";
+import { fileURLToPath } from "url";
 import * as fs from "fs";
 import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import compression from "compression";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const version = fs.readFileSync(path.join(__dirname, "VERSION"), { encoding: "utf8" });
 const banner = `
   Version ${version}
@@ -18,17 +21,17 @@ const banner = `
 `;
 log.info(banner);
 
-import { Configuration } from "./singleton/configuration";
+import { Configuration } from "./singleton/configuration.js";
 const environment = Configuration.get("environment");
 process.env.NODE_ENV = environment;
 log.info("Environment: %s", environment);
 
-import { MongoDB } from "./singleton/mongo-db";
-import { Api } from "./singleton/api/api";
-import { activateRateLimiters } from "./service/rate-limiter/rate-limiter";
-import { Mailer } from "./singleton/mailer";
-import { errorMessages, statusCodes } from "./utils/http-status";
-import { ErrorResponse } from "./utils/response";
+import { MongoDB } from "./singleton/mongo-db.js";
+import { Api } from "./singleton/api/api.js";
+import { activateRateLimiters } from "./service/rate-limiter/rate-limiter.js";
+import { Mailer } from "./singleton/mailer.js";
+import { errorMessages, statusCodes } from "./utils/http-status.js";
+import { ErrorResponse } from "./utils/response.js";
 
 const app = express();
 app.disable("x-powered-by");

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Microservice starter with built in Liquid integration.",
   "main": "index.js",
+  "type": "module",
   "browserslist": "> 0.25%, not dead",
   "scripts": {
     "test": "mocha -r ts-node/register 'test/integration/**/*.spec.ts' --exit --recursive --require test/integration/index.spec.ts",

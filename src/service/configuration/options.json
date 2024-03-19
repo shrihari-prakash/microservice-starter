@@ -79,6 +79,13 @@
     "default": "Liquid"
   },
   {
+    "name": "system.service.app-config-file-path",
+    "displayName": "Service App Config File Path",
+    "envName": "SYSTEM_SERVICE_APP_CONFIG_FILE_PATH",
+    "description": "Specifies the file path for backend configuration file.",
+    "type": "string"
+  },
+  {
     "name": "system.stats.enable-request-counting",
     "displayName": "Stats Enable Request Counting",
     "envName": "SYSTEM_STATS_ENABLE_REQUEST_COUNTING",

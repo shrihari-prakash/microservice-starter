@@ -1,9 +1,9 @@
-import { Logger } from "../../singleton/logger";
+import { Logger } from "../../singleton/logger.js";
 const log = Logger.getLogger().child({ from: "liquid-authenticator" });
 
 import LiquidNodeAuthenticator from "liquid-node-authenticator";
-import { Redis } from "../../singleton/redis";
-import { Configuration } from "../../singleton/configuration";
+import { Redis } from "../../singleton/redis.js";
+import { Configuration } from "../../singleton/configuration.js";
 
 export class LiquidAuthenticator {
   connector: LiquidNodeAuthenticator;

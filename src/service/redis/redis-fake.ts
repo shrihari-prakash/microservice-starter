@@ -1,4 +1,4 @@
-import { Logger } from "../../singleton/logger";
+import { Logger } from "../../singleton/logger.js";
 const log = Logger.getLogger().child({ from: "redis-fake" });
 
 export default class RedisFake {

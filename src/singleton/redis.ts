@@ -1,6 +1,6 @@
-import Redis from "../service/redis/redis";
-import RedisFake from "../service/redis/redis-fake";
-import { Configuration } from "./configuration";
+import Redis from "../service/redis/redis.js";
+import RedisFake from "../service/redis/redis-fake.js";
+import { Configuration } from "./configuration.js";
 
 let redis: Redis;
 if (Configuration.get("privilege.can-use-cache") && Configuration.get("environment") !== "test") {
