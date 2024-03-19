@@ -59,10 +59,12 @@ The service uses [Liquid](https://github.com/shrihari-prakash/liquid) for API au
 For instance, a sample `app-config.json` file with Liquid options configured looks like this:
 
 ```json
-liquid.host=http://localhost:2000 # Replace with your Liquid instance host
-liquid.client-id=application_client # Client ID for communicating with your Liquid instance
-liquid.client-secret=super-secure-client-secret # Client Secret for communicating with your Liquid instance
-liquid.auth-cache-expiry=300
+{
+    "liquid.host"="http://localhost:2000" # Replace with your Liquid instance host
+    "liquid.client-id"="application_client" # Client ID for communicating with your Liquid instance
+    "liquid.client-secret"="super-secure-client-secret" # Client Secret for communicating with your Liquid instance
+    "liquid.auth-cache-expiry"=300
+}
 ```
 
 ### Adding New APIs
