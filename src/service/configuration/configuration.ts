@@ -20,7 +20,7 @@ export class Configuration {
   }
 
   private loadConfigFromJSON() {
-    const path = this.get("system.service.app-config-file-path");
+    const path = this.get("system.app-config-file-path");
     console.log("Backend configuration path: " + path);
     if (path) {
       try {

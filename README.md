@@ -39,7 +39,8 @@ This is a starter template for creating a microservice with [Liquid](https://git
 
 The service's configuration is managed through the class `Configuration` (`src/service/configuration/configuration.ts`). Options and their default values are specified in file `src/service/configuration/options.json`. You can extend this JSON file to add your own options related to your service.
 
-- When you want to configure an option, just copy the `envName` field of the option (inside options.json) and add it to your `.env` file.
+- When you want to configure an option, just copy the `name` field of the option (inside options.json) and add it to a JSON file, say, `app-config.json`.
+- Pass this JSON file path to the node process using the environment variable `SYSTEM_APP_CONFIG_FILE_PATH`.
 - When you want to retrieve an option value, call the Configuration singleton's get function. Sample usage:
 
 ```js
@@ -55,13 +56,13 @@ The service uses [Liquid](https://github.com/shrihari-prakash/liquid) for API au
 3. **liquid.client-secret:** Client Secret of your Liquid client.
 4. **liquid.auth-cache-expiry:** Expiry time for how long results of token authentication should be cached.
 
-For instance, a sample env file with Liquid options configured looks like this:
+For instance, a sample `app-config.json` file with Liquid options configured looks like this:
 
-```bash
-LIQUID_HOST=http://localhost:2000 # Replace with your Liquid instance host
-LIQUID_CLIENT_ID=application_client # Client ID for communicating with your Liquid instance
-LIQUID_CLIENT_SECRET=super-secure-client-secret # Client Secret for communicating with your Liquid instance
-LIQUID_AUTH_CACHE_EXPIRY=300
+```json
+liquid.host=http://localhost:2000 # Replace with your Liquid instance host
+liquid.client-id=application_client # Client ID for communicating with your Liquid instance
+liquid.client-secret=super-secure-client-secret # Client Secret for communicating with your Liquid instance
+liquid.auth-cache-expiry=300
 ```
 
 ### Adding New APIs

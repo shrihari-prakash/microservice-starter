@@ -79,9 +79,9 @@
     "default": "Liquid"
   },
   {
-    "name": "system.service.app-config-file-path",
-    "displayName": "Service App Config File Path",
-    "envName": "SYSTEM_SERVICE_APP_CONFIG_FILE_PATH",
+    "name": "system.app-config-file-path",
+    "displayName": "App Config File Path",
+    "envName": "SYSTEM_APP_CONFIG_FILE_PATH",
     "description": "Specifies the file path for backend configuration file.",
     "type": "string"
   },
