@@ -81,19 +81,22 @@ export const AuthenticateClient = async (req: Request, res: Response, next: Next
   }
 };
 
-export const CheckScope = (scope: string) => {
+export const CheckScope = (scopes: string | string[]) => {
+  if (typeof scopes === "string") scopes = [scopes];
   return (_: Request, res: Response, next: NextFunction) => {
     const sendMissingScope = () =>
       res.status(statusCodes.unauthorized).json(
         new ErrorResponse(errorMessages.unauthorized, {
-          details: `Missing scope '${scope}'`,
+          details: `Missing scope '${scopes}'`,
         })
       );
     const token = res.locals.token;
     if (!token) return sendMissingScope();
-    if (!LiquidAuthenticator.checkTokenScope(scope, token)) {
-      sendMissingScope();
-      return;
+    for (let i = 0; i < scopes.length; i++) {
+      if (!LiquidAuthenticator.checkTokenScope(scopes[i], token)) {
+        sendMissingScope();
+        return;
+      }
     }
     return next();
   };
