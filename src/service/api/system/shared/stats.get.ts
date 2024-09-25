@@ -8,17 +8,9 @@ import app from "../../../../index.js";
 import { errorMessages, statusCodes } from "../../../../utils/http-status.js";
 import { ErrorResponse, SuccessResponse } from "../../../../utils/response.js";
 import { Configuration } from "../../../../singleton/configuration.js";
-import { LiquidAuthenticator } from "../../../../singleton/liquid-authenticator.js";
 
 const GET__Stats = async (_: Request, res: Response) => {
   try {
-    const token = res.locals.token;
-    if (
-      !LiquidAuthenticator.checkTokenScope("admin:configuration:read", token) &&
-      !LiquidAuthenticator.checkTokenScope("client:configuration:read", token)
-    ) {
-      return res.status(statusCodes.unauthorized).json(new ErrorResponse(errorMessages.insufficientPrivileges));
-    }
     const heapTotal = process.memoryUsage().heapTotal / 1024 / 1024;
     const heapUsed = process.memoryUsage().heapUsed / 1024 / 1024;
     const stats = {

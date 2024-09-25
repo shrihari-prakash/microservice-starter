@@ -108,7 +108,15 @@ It is recommended that you checkout the `src/service/api/system` folder to see a
 
 ### Scope Management
 
-To learn about scopes and how you can extend Liquid scopes, see [this article](https://github.com/shrihari-prakash/liquid/wiki/Understanding-Access-Control-and-Integrating-with-Other-Microservices). Once you've successfully extended Liquid scopes, in the beginning of your API executions, you usually need to call the `LiquidAuthenticator.isScopeAllowedForRequest("your:api:scope")` function.
+To learn about scopes and how you can extend Liquid scopes, see [this article](https://github.com/shrihari-prakash/liquid/wiki/Understanding-Access-Control-and-Integrating-with-Other-Microservices). Once you've successfully extended Liquid scopes, in the chain of middlewares correcponding to your API, you usually need to call the `CheckScope("your:api:scope")` function **after** authentication present in the authentication middleware file.
+
+For example:
+
+```
+import { AuthenticateUser, CheckScope } from "../../middleware/authenticate.js";
+
+YourRouter.get("/your-api", AuthenticateUser, CheckScope("your:scope:to:check"), METHOD_YourAPIHandler);
+```
 
 ### Running the service
 

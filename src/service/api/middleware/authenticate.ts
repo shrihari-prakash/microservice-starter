@@ -80,3 +80,21 @@ export const AuthenticateClient = async (req: Request, res: Response, next: Next
     return;
   }
 };
+
+export const CheckScope = (scope: string) => {
+  return (_: Request, res: Response, next: NextFunction) => {
+    const sendMissingScope = () =>
+      res.status(statusCodes.unauthorized).json(
+        new ErrorResponse(errorMessages.unauthorized, {
+          details: `Missing scope '${scope}'`,
+        })
+      );
+    const token = res.locals.token;
+    if (!token) return sendMissingScope();
+    if (!LiquidAuthenticator.checkTokenScope(scope, token)) {
+      sendMissingScope();
+      return;
+    }
+    return next();
+  };
+};
