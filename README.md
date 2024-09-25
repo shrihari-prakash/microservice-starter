@@ -112,7 +112,7 @@ To learn about scopes and how you can extend Liquid scopes, see [this article](h
 
 For example:
 
-```
+```js
 import { AuthenticateUser, CheckScope } from "../../middleware/authenticate.js";
 
 YourRouter.get("/your-api", AuthenticateUser, CheckScope("your:scope:to:check"), METHOD_YourAPIHandler);
