@@ -92,12 +92,18 @@ export const CheckScope = (scopes: string | string[]) => {
       );
     const token = res.locals.token;
     if (!token) return sendMissingScope();
+    let isAllowed = true;
     for (let i = 0; i < scopes.length; i++) {
       if (!LiquidAuthenticator.checkTokenScope(scopes[i], token)) {
-        sendMissingScope();
-        return;
+        isAllowed = false;
+        break;
       }
+    }
+    if (!isAllowed) {
+      sendMissingScope();
+      return;
     }
     return next();
   };
 };
+
