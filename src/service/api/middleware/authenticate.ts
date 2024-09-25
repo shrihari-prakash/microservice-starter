@@ -87,7 +87,7 @@ export const CheckScope = (scopes: string | string[]) => {
     const sendMissingScope = () =>
       res.status(statusCodes.unauthorized).json(
         new ErrorResponse(errorMessages.unauthorized, {
-          details: `Missing scope '${scopes}'`,
+          details: `Missing scope '${scopes.join()}'`,
         })
       );
     const token = res.locals.token;
