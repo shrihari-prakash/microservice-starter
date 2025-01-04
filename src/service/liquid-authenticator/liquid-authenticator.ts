@@ -6,9 +6,9 @@ import { Redis } from "../../singleton/redis.js";
 import { Configuration } from "../../singleton/configuration.js";
 
 export class LiquidAuthenticator {
-  connector: LiquidNodeAuthenticator;
+  connector!: LiquidNodeAuthenticator;
 
-  constructor() {
+  initialize() {
     log.info("Initializing liquid node connector...");
     this.connector = new LiquidNodeAuthenticator({
       host: Configuration.get("liquid.host"),

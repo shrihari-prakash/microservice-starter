@@ -32,6 +32,7 @@ import { activateRateLimiters } from "./service/rate-limiter/rate-limiter.js";
 import { Mailer } from "./singleton/mailer.js";
 import { errorMessages, statusCodes } from "./utils/http-status.js";
 import { ErrorResponse } from "./utils/response.js";
+import { LiquidAuthenticator } from "./singleton/liquid-authenticator.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -78,6 +79,7 @@ if (environment !== "test") {
 }
 Api.initialize(app);
 Mailer.initialize(app);
+LiquidAuthenticator.initialize();
 // ********** End Singleton Init ********** //
 
 app.all("*", function (_, res) {
