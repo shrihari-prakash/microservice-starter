@@ -95,7 +95,7 @@ if (isReverseProxy) {
 
 app.listen(Configuration.get("system.app-port"), () => {
   log.info(
-    `${Configuration.get("system.app-name")} auth is listening at http://localhost:${Configuration.get(
+    `${Configuration.get("system.app-name")} is listening at http://localhost:${Configuration.get(
       "system.app-port"
     )}`
   );
